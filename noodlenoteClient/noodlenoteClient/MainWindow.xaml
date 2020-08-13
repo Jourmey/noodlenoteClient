@@ -8,13 +8,21 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
-   
+
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <mah:MetroHeader Grid.Column="0">
-        </mah:MetroHeader>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <ListBox Name="BookList"  SelectionChanged="BookList_SelectionChanged" >
+
+            </ListBox>
+        </Grid>
     </Grid>
 </mah:MetroWindow>

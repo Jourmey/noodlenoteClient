@@ -24,16 +24,25 @@ namespace noodlenoteClient
         public MainWindow()
         {
             InitializeComponent();
+            Init();
         }
 
-        private void LaunchGitHubSite(object sender, RoutedEventArgs e)
+        private void Init()
         {
-            // Launch the GitHub site...
+            updateBookList(new List<string> { "wtf1", "wtf2", "wtf3", "wtf4" });
         }
 
-        private void DeployCupCakes(object sender, RoutedEventArgs e)
+
+
+        private void updateBookList(List<string> books)
         {
-            // deploy some CupCakes...
+            this.BookList.ItemsSource = books;
+
+        }
+
+        private void BookList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Console.WriteLine("selected change");
         }
     }
 }
