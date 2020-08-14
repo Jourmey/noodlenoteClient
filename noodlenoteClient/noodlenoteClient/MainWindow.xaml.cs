@@ -21,6 +21,8 @@ namespace noodlenoteClient
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        private ApiManager _apiManager;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -29,6 +31,8 @@ namespace noodlenoteClient
 
         private void Init()
         {
+            this._apiManager = new ApiManager();
+
             updateBookList(new List<string> { "wtf1", "wtf2", "wtf3", "wtf4" });
         }
 
@@ -43,6 +47,11 @@ namespace noodlenoteClient
         private void BookList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Console.WriteLine("selected change");
+        }
+
+        private void Button_Ping_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(this._apiManager.Ping().ToString());
         }
     }
 }

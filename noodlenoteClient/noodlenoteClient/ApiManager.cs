@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace noodlenoteClient
@@ -22,32 +24,28 @@ namespace noodlenoteClient
             this._client = new HttpClient(this._handler);
             this._client.BaseAddress = new Uri("http://localhost:9000/");
 
-
-
-
         }
 
-        public async Task<bool> Ping()
+        public bool Ping()
         {
-            //// Call asynchronous network methods in a try/catch block to handle exceptions
-            //try
-            //{
-            //    HttpResponseMessage response = await client.GetAsync("http://www.contoso.com/");
-
-            //    response.EnsureSuccessStatusCode();
-
-            //    string responseBody = await response.Content.ReadAsStringAsync();
-            //    Console.WriteLine(responseBody);
-            //}
-
-
-            HttpResponseMessage response = await this._client.GetAsync("ping");
+            HttpResponseMessage response = this._client.GetAsync("ping").Result;
             if (response.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 return false;
             }
-            return true;
+
+            return string.Equals(response.Content.ReadAsStringAsync().Result, "Pong");
         }
+
+        public void  GetNoteBookAll() 
+        {
+            
+            HttpResponseMessage response = this._client.GetAsync("notebook/all").Result;
+            var jsonData = response.Content.ReadAsByteArrayAsync().Result;
+
+            NoteBook noteBook = JsonSerializer.Deserialize<NoteBook>()
+        }
+
 
     }
 }
