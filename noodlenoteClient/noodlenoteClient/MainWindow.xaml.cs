@@ -53,5 +53,17 @@ namespace noodlenoteClient
         {
             MessageBox.Show(this._apiManager.Ping().ToString());
         }
+
+        private void Button_GetAllNote_Click(object sender, RoutedEventArgs e)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            this._apiManager.GetNoteBookAll().ForEach((note) =>
+            {
+                sb.Append($"Name:{note.Name} {Environment.NewLine} Number:{note.NotesNum} {Environment.NewLine} Time:{note.CreatedAt}-{note.UpdatedAt}{Environment.NewLine}");
+            });
+
+            MessageBox.Show(sb.ToString());
+        }
     }
 }

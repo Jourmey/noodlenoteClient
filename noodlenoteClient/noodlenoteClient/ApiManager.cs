@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -37,13 +38,13 @@ namespace noodlenoteClient
             return string.Equals(response.Content.ReadAsStringAsync().Result, "Pong");
         }
 
-        public void  GetNoteBookAll() 
+        public List<NoteBook> GetNoteBookAll()
         {
-            
             HttpResponseMessage response = this._client.GetAsync("notebook/all").Result;
-            var jsonData = response.Content.ReadAsByteArrayAsync().Result;
+            var jsonData = response.Content.ReadAsStreamAsync().Result;
+            var noteBook = JsonSerializer.DeserializeAsync<List<NoteBook>>(jsonData).Result;
 
-            NoteBook noteBook = JsonSerializer.Deserialize<NoteBook>()
+            return noteBook;
         }
 
 
