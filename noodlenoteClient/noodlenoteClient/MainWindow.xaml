@@ -21,39 +21,10 @@
         </StackPanel>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition Width="200"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <!--BookList-->
-            <ListBox Name="ListBox_BookList"  SelectionChanged="BookList_SelectionChanged" >
-
-            </ListBox>
-            <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50"></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <!--BookInfo-->
-                <StackPanel Grid.Row="0">
-                    <Label Name="Lable_BookTitle">Xxx</Label>
-                    <Label Name="Lable_NoteTitle">Xxx</Label>
-                </StackPanel>
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition  Width="150"></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <!--Note-->
-                    <TextBox x:Name="TextBox_Note" Grid.Column="1">
-
-                    </TextBox>
-                    <!--NoteList-->
-                    <ListBox Name="ListBox_NoteList"  SelectionChanged="ListBox_NoteList_SelectionChanged" >
-
-                    </ListBox>
-                </Grid>
-            </Grid>
-
+            <local:BookNoteList></local:BookNoteList>
         </Grid>
     </Grid>
 </mah:MetroWindow>

@@ -31,13 +31,20 @@ namespace noodlenoteClient
 
         public bool Ping()
         {
-            HttpResponseMessage response = this._client.GetAsync("ping").Result;
-            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+            try
+            {
+                HttpResponseMessage response = this._client.GetAsync("ping").Result;
+                if (response.StatusCode != System.Net.HttpStatusCode.OK)
+                {
+                    return false;
+                }
+
+                return string.Equals(response.Content.ReadAsStringAsync().Result, "Pong");
+            }
+            catch (Exception ex)
             {
                 return false;
             }
-
-            return string.Equals(response.Content.ReadAsStringAsync().Result, "Pong");
         }
 
         public List<NoteBook> GetNoteBookAll()
