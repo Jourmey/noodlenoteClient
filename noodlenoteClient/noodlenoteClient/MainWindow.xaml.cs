@@ -22,6 +22,8 @@ namespace noodlenoteClient
     public partial class MainWindow : MetroWindow
     {
         private ApiManager _apiManager;
+        private Book _currentBook;
+        private Note _currentNote;
 
         public MainWindow()
         {
@@ -32,38 +34,60 @@ namespace noodlenoteClient
         private void Init()
         {
             this._apiManager = new ApiManager();
-
-            updateBookList(new List<string> { "wtf1", "wtf2", "wtf3", "wtf4" });
         }
 
-
-
-        private void updateBookList(List<string> books)
-        {
-            this.BookList.ItemsSource = books;
-
-        }
-
-        private void BookList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Console.WriteLine("selected change");
-        }
 
         private void Button_Ping_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show(this._apiManager.Ping().ToString());
         }
 
-        private void Button_GetAllNote_Click(object sender, RoutedEventArgs e)
+
+        private void BookList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            StringBuilder sb = new StringBuilder();
-
-            this._apiManager.GetNoteBookAll().ForEach((note) =>
+            if (!(this.ListBox_BookList.SelectedItem is Book))
             {
-                sb.Append($"Name:{note.Name} {Environment.NewLine} Number:{note.NotesNum} {Environment.NewLine} Time:{note.CreatedAt}-{note.UpdatedAt}{Environment.NewLine}");
-            });
+                return;
+            }
+            this._currentBook = this.ListBox_BookList.SelectedItem as Book;
+            this.Lable_BookTitle.Content = this._currentBook.ToInfo();
+            updateNoteList(this._currentBook.Notes);
+        }
 
-            MessageBox.Show(sb.ToString());
+        private void ListBox_NoteList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!(this.ListBox_NoteList.SelectedItem is Note))
+            {
+                return;
+            }
+            this._currentNote = this.ListBox_NoteList.SelectedItem as Note;
+            this.Lable_NoteTitle.Content = this._currentNote.ToInfo();
+            this.TextBox_Note.Text = this._currentNote.Content;
+        }
+        private void updateBookList(List<Book> books)
+        {
+            if (books == null || books.Count == 0)
+            {
+                return;
+            }
+
+            this.ListBox_BookList.ItemsSource = books;
+        }
+
+        private void updateNoteList(List<Note> notes)
+        {
+            if (notes == null || notes.Count == 0)
+            {
+                return;
+            }
+
+            this.ListBox_NoteList.ItemsSource = notes;
+        }
+
+        private void Button_Init_Click(object sender, RoutedEventArgs e)
+        {
+            this._apiManager.InitBook();
+            updateBookList(this._apiManager.Books);
         }
     }
 }
