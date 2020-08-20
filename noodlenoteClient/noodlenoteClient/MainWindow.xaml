@@ -6,7 +6,7 @@
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:noodlenoteClient"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="noodle" Height="450" Width="800">
 
 
     <Grid>
@@ -25,11 +25,10 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <local:BookNoteList x:Name="UC_Book" Grid.Column="0" BookChange="BookNoteList_BookChange" NoteChange="BookNoteList_NoteChange">
-                
+
             </local:BookNoteList>
-            <RichTextBox x:Name="RichTextBox_Note" Grid.Column="1" Style="{StaticResource MahApps.Styles.RichTextBox}">
-                
-            </RichTextBox>
+            <local:NoteEdit x:Name="UC_Note" Grid.Column="1" PushNote="UC_Note_PushNote"></local:NoteEdit>
+
         </Grid>
     </Grid>
 </mah:MetroWindow>

@@ -54,7 +54,7 @@ namespace noodlenoteClient
         private void BookNoteList_NoteChange(object sender, Note e)
         {
             this._currentNote = e;
-            this.RichTextBox_Note.AppendText(e.Content);
+            this.UC_Note.UpdateNote(e);
         }
 
         private void BookNoteList_BookChange(object sender, NoteBook e)
@@ -76,6 +76,11 @@ namespace noodlenoteClient
 
                 this.UC_Book.InitNotes(notes);
             }
+
+        }
+
+        private void UC_Note_PushNote(object sender, Note e)
+        {
 
         }
     }

@@ -9,7 +9,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Grid>
@@ -18,8 +18,8 @@
                 <ColumnDefinition Width="50"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <StackPanel>
-                <Label Name="Lable_Book">Xxxx</Label>
-                <Label Name="Lable_CreatAt">2020-08-19 17:30:18</Label>
+                <Label Name="Lable_Book" FontSize="17">BookName</Label>
+                <Label Name="Lable_CreatAt" FontSize="11">2020-08-19</Label>
             </StackPanel>
             <RadioButton x:Name="RadioButton_Book" Grid.Column="1" Content="Book" Width="30" Height="30" Style="{StaticResource MahApps.Styles.Button.Circle}" Click="RadioButton_Click"></RadioButton>
         </Grid>
@@ -27,14 +27,14 @@
                        CanResizeOpenPane="True" IsPaneOpen="True">
 
             <mah:SplitView.Pane>
-                <ListBox x:Name="ListBox_Books" SelectionChanged="ListBox_SelectionChanged" Style="{StaticResource MahApps.Styles.ListBox.Virtualized}" Background="LightGray">
+                <ListBox x:Name="ListBox_Books" SelectionChanged="ListBox_SelectionChanged" Style="{StaticResource MahApps.Styles.ListBox.Virtualized}">
                     <!--<ListBoxItem>Book1</ListBoxItem>
                     <ListBoxItem>Book2</ListBoxItem>
                     <ListBoxItem>Book3</ListBoxItem>-->
                 </ListBox>
             </mah:SplitView.Pane>
 
-            <ListBox x:Name="ListBox_Notes" SelectionChanged="ListBox_Notes_SelectionChanged" Style="{StaticResource MahApps.Styles.ListBox.Virtualized}" Background="LightPink">
+            <ListBox x:Name="ListBox_Notes" SelectionChanged="ListBox_Notes_SelectionChanged" Style="{StaticResource MahApps.Styles.ListBox.Virtualized}">
                 <!--<ListBoxItem>Item1</ListBoxItem>
                 <ListBoxItem>Item2</ListBoxItem>
                 <ListBoxItem>Item3</ListBoxItem>-->

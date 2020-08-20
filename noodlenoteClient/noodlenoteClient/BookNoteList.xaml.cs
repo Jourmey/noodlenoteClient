@@ -18,6 +18,9 @@ namespace noodlenoteClient
     /// </summary>
     public partial class BookNoteList : UserControl
     {
+        public event EventHandler<NoteBook> BookChange;
+        public event EventHandler<Note> NoteChange;
+
         public BookNoteList()
         {
             InitializeComponent();
@@ -47,12 +50,12 @@ namespace noodlenoteClient
 
             var b = this.ListBox_Books.SelectedItem as NoteBook;
 
-            BookChange?.Invoke(this, b);
+            this.Lable_Book.Content = b.Name;
+            this.Lable_CreatAt.Content = b.CreatedAt.ToShortDateString();
 
+            BookChange?.Invoke(this, b);
         }
 
-        public event EventHandler<NoteBook> BookChange;
-        public event EventHandler<Note> NoteChange;
 
         private void ListBox_Notes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
