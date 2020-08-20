@@ -23,9 +23,46 @@ namespace noodlenoteClient
             InitializeComponent();
         }
 
-        private void Button_Book_Click(object sender, RoutedEventArgs e)
+        public void InitBooks(List<NoteBook> books)
         {
+            this.ListBox_Books.ItemsSource = books;
+        }
+        public void InitNotes(List<Note> notes)
+        {
+            this.ListBox_Notes.ItemsSource = notes;
+        }
 
+        private void RadioButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.SplitView_Books.IsPaneOpen = !this.SplitView_Books.IsPaneOpen;
+        }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.SplitView_Books.IsPaneOpen = false;
+            if (!(this.ListBox_Books.SelectedItem is NoteBook))
+            {
+                return;
+            }
+
+            var b = this.ListBox_Books.SelectedItem as NoteBook;
+
+            BookChange?.Invoke(this, b);
+
+        }
+
+        public event EventHandler<NoteBook> BookChange;
+        public event EventHandler<Note> NoteChange;
+
+        private void ListBox_Notes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!(this.ListBox_Notes.SelectedItem is Note))
+            {
+                return;
+            }
+
+            var n = this.ListBox_Notes.SelectedItem as Note;
+            NoteChange?.Invoke(this, n);
         }
     }
 }

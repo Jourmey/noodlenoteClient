@@ -21,13 +21,27 @@
                 <Label Name="Lable_Book">Xxxx</Label>
                 <Label Name="Lable_CreatAt">2020-08-19 17:30:18</Label>
             </StackPanel>
-            <Button Grid.Column="1" Content="Book" Width="30" Height="30" Style="{StaticResource MahApps.Styles.Button.Circle}" Click="Button_Book_Click"></Button>
+            <RadioButton x:Name="RadioButton_Book" Grid.Column="1" Content="Book" Width="30" Height="30" Style="{StaticResource MahApps.Styles.Button.Circle}" Click="RadioButton_Click"></RadioButton>
         </Grid>
-        <ListBox Grid.Row="1" Style="{StaticResource MahApps.Styles.ListBox.Virtualized}">
-            <ListBoxItem>Item1</ListBoxItem>
-            <ListBoxItem>Item2</ListBoxItem>
-            <ListBoxItem>Item3</ListBoxItem>
-        </ListBox>
+        <mah:SplitView x:Name="SplitView_Books"  Grid.Row="1"  DisplayMode="Overlay"
+                       CanResizeOpenPane="True" IsPaneOpen="True">
+
+            <mah:SplitView.Pane>
+                <ListBox x:Name="ListBox_Books" SelectionChanged="ListBox_SelectionChanged" Style="{StaticResource MahApps.Styles.ListBox.Virtualized}" Background="LightGray">
+                    <!--<ListBoxItem>Book1</ListBoxItem>
+                    <ListBoxItem>Book2</ListBoxItem>
+                    <ListBoxItem>Book3</ListBoxItem>-->
+                </ListBox>
+            </mah:SplitView.Pane>
+
+            <ListBox x:Name="ListBox_Notes" SelectionChanged="ListBox_Notes_SelectionChanged" Style="{StaticResource MahApps.Styles.ListBox.Virtualized}" Background="LightPink">
+                <!--<ListBoxItem>Item1</ListBoxItem>
+                <ListBoxItem>Item2</ListBoxItem>
+                <ListBoxItem>Item3</ListBoxItem>-->
+            </ListBox>
+
+        </mah:SplitView>
+
 
     </Grid>
 </UserControl>

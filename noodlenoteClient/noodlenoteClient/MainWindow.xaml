@@ -24,7 +24,12 @@
                 <ColumnDefinition Width="200"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <local:BookNoteList></local:BookNoteList>
+            <local:BookNoteList x:Name="UC_Book" Grid.Column="0" BookChange="BookNoteList_BookChange" NoteChange="BookNoteList_NoteChange">
+                
+            </local:BookNoteList>
+            <RichTextBox x:Name="RichTextBox_Note" Grid.Column="1" Style="{StaticResource MahApps.Styles.RichTextBox}">
+                
+            </RichTextBox>
         </Grid>
     </Grid>
 </mah:MetroWindow>

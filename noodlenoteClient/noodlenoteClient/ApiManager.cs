@@ -1,7 +1,9 @@
-﻿using System;
+﻿using MahApps.Metro.Converters;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
+using System.Security.RightsManagement;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -12,7 +14,10 @@ namespace noodlenoteClient
     class ApiManager
     {
 
-        public List<Book> Books { get; private set; } = new List<Book>();
+        public Dictionary<int, NoteBook> Books { get; private set; } = new Dictionary<int, NoteBook>();
+        public Dictionary<int, Note> Notes { get; private set; } = new Dictionary<int, Note>();
+        public Dictionary<int, List<int>> BookIDToNoteID { get; private set; } = new Dictionary<int, List<int>>();
+
 
         private HttpClientHandler _handler;
         private HttpClient _client;
@@ -56,6 +61,8 @@ namespace noodlenoteClient
             return noteBook;
         }
 
+
+
         internal List<int> GetNoteIDs(int id)
         {
             HttpResponseMessage response = this._client.GetAsync($"notebook/list/{id}").Result;
@@ -74,7 +81,19 @@ namespace noodlenoteClient
             return note;
         }
 
-        public bool InitBook()
+        internal Note GetOrPullNote(int id)
+        {
+            if (this.Notes.ContainsKey(id))
+            {
+                return this.Notes[id];
+            }
+            else
+            {
+                return UpdateNote(id);
+            }
+        }
+
+        public bool UpdateBook()
         {
             var books = this.GetNoteBookAll();
             if (books == null || books.Count == 0)
@@ -82,24 +101,31 @@ namespace noodlenoteClient
                 return true;
             }
 
-            this.Books = new List<Book>();
-
             foreach (var oneBook in books)
             {
-                Book book = new Book(oneBook);
+                this.Books.Add(oneBook.ID, oneBook);
                 var noteids = this.GetNoteIDs(oneBook.ID);
                 if (noteids != null && noteids.Count != 0)
                 {
-                    foreach (var noteid in noteids)
-                    {
-                        var one = this.GetNoteByID(noteid);
-                        book.Notes.Add(one);
-                    }
+                    this.BookIDToNoteID.Add(oneBook.ID, noteids);
                 }
-                this.Books.Add(book);
             }
 
             return true;
+        }
+
+        public Note UpdateNote(int noteid)
+        {
+            var note = GetNoteByID(noteid);
+            if (!this.Notes.ContainsKey(note.ID))
+            {
+                this.Notes.Add(note.ID, note);
+            }
+            else
+            {
+                this.Notes[note.ID] = note;
+            }
+            return note;
         }
 
     }

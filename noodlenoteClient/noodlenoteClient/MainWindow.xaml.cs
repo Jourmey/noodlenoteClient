@@ -22,7 +22,7 @@ namespace noodlenoteClient
     public partial class MainWindow : MetroWindow
     {
         private ApiManager _apiManager;
-        private Book _currentBook;
+        private NoteBook _currentBook;
         private Note _currentNote;
 
         public MainWindow()
@@ -45,7 +45,38 @@ namespace noodlenoteClient
 
         private void Button_Init_Click(object sender, RoutedEventArgs e)
         {
-            this._apiManager.InitBook();
+            if (this._apiManager.UpdateBook())
+            {
+                this.UC_Book.InitBooks(this._apiManager.Books.Values.ToList());
+            }
+        }
+
+        private void BookNoteList_NoteChange(object sender, Note e)
+        {
+            this._currentNote = e;
+            this.RichTextBox_Note.AppendText(e.Content);
+        }
+
+        private void BookNoteList_BookChange(object sender, NoteBook e)
+        {
+            this._currentBook = e;
+            if (this._apiManager.BookIDToNoteID.ContainsKey(e.ID))
+            {
+                List<Note> notes = new List<Note>();
+
+                var noteIDs = this._apiManager.BookIDToNoteID[e.ID];
+                if (noteIDs != null && noteIDs.Count != 0)
+                {
+                    foreach (var id in noteIDs)
+                    {
+                        var n = this._apiManager.GetOrPullNote(id);
+                        notes.Add(n);
+                    }
+                }
+
+                this.UC_Book.InitNotes(notes);
+            }
+
         }
     }
 }

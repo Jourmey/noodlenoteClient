@@ -68,29 +68,4 @@ namespace noodlenoteClient
         }
     }
 
-    public class Book : NoteBook
-    {
-        public Book(NoteBook oneBook)
-        {
-            this.ID = oneBook.ID;
-            this.Name = oneBook.Name;
-            this.NotesNum = oneBook.NotesNum;
-            this.CreatedAt = oneBook.CreatedAt;
-            this.UpdatedAt = oneBook.UpdatedAt;
-            this.Notes = new List<Note>();
-        }
-
-        public List<Note> Notes { get; set; }
-
-        public override string ToString()
-        {
-            return this.Name;
-        }
-
-        internal string ToInfo()
-        {
-            return $"[{this.Name}] [{this.NotesNum}] [{this.CreatedAt}-{this.UpdatedAt}] [{this.ID}]";
-        }
-    }
-
 }
