@@ -72,6 +72,17 @@ namespace noodlenoteClient
             return noteids;
         }
 
+        internal bool UpdateNote(Note e)
+        {
+            var json = JsonSerializer.Serialize(e);
+
+            HttpContent content = new StringContent(json);
+            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+
+            HttpResponseMessage response = this._client.PutAsync($"note/update", content).Result;
+            return response.StatusCode == System.Net.HttpStatusCode.OK;
+        }
+
         internal Note GetNoteByID(int noteid)
         {
             HttpResponseMessage response = this._client.GetAsync($"note/get/{noteid}").Result;

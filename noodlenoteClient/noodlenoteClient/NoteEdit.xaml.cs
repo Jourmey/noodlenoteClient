@@ -46,6 +46,8 @@ namespace noodlenoteClient
 
         private void Tile_Click(object sender, RoutedEventArgs e)
         {
+            this._currentNote.Content = this.TextBox_Note.Text;
+
             PushNote?.Invoke(this, this._currentNote);
         }
     }

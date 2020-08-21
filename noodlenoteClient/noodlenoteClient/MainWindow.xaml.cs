@@ -81,7 +81,10 @@ namespace noodlenoteClient
 
         private void UC_Note_PushNote(object sender, Note e)
         {
-
+            if (e != null)
+            {
+                MessageBox.Show(_apiManager.UpdateNote(e) ? "Push Success" : "Push Failed");
+            }
         }
     }
 }
