@@ -51,30 +51,37 @@ namespace noodlenoteClient
             }
         }
 
-        private void BookNoteList_NoteChange(object sender, Note e)
+        private void BookNoteList_NoteChange(object sender, NoteOp e)
         {
-            this._currentNote = e;
-            this.UC_Note.UpdateNote(e);
+            if (e.Op == Operator.Change)
+            {
+                this._currentNote = e.Note;
+                this.UC_Note.UpdateNote(e.Note);
+            }
+
         }
 
-        private void BookNoteList_BookChange(object sender, NoteBook e)
+        private void BookNoteList_BookChange(object sender, BookOp e)
         {
-            this._currentBook = e;
-            if (this._apiManager.BookIDToNoteID.ContainsKey(e.ID))
+            if (e.Op == Operator.Change)
             {
-                List<Note> notes = new List<Note>();
-
-                var noteIDs = this._apiManager.BookIDToNoteID[e.ID];
-                if (noteIDs != null && noteIDs.Count != 0)
+                this._currentBook = e.Book;
+                if (this._apiManager.BookIDToNoteID.ContainsKey(e.Book.ID))
                 {
-                    foreach (var id in noteIDs)
-                    {
-                        var n = this._apiManager.GetOrPullNote(id);
-                        notes.Add(n);
-                    }
-                }
+                    List<Note> notes = new List<Note>();
 
-                this.UC_Book.InitNotes(notes);
+                    var noteIDs = this._apiManager.BookIDToNoteID[e.Book.ID];
+                    if (noteIDs != null && noteIDs.Count != 0)
+                    {
+                        foreach (var id in noteIDs)
+                        {
+                            var n = this._apiManager.GetOrPullNote(id);
+                            notes.Add(n);
+                        }
+                    }
+
+                    this.UC_Book.InitNotes(notes);
+                }
             }
 
         }
@@ -86,5 +93,6 @@ namespace noodlenoteClient
                 MessageBox.Show(_apiManager.UpdateNote(e) ? "Push Success" : "Push Failed");
             }
         }
+
     }
 }

@@ -68,4 +68,26 @@ namespace noodlenoteClient
         }
     }
 
+
+    public enum Operator
+    {
+        Add,
+        Change,
+        Delete
+    }
+
+
+    public class BookOp
+    {
+        public Operator Op { get; set; }
+        public NoteBook Book { get; set; }
+    }
+
+
+    public class NoteOp
+    {
+        public Operator Op { get; set; }
+        public Note Note { get; set; }
+    }
+
 }

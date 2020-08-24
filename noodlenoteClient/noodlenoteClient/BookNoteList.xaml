@@ -16,12 +16,16 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition Width="50"></ColumnDefinition>
+                <ColumnDefinition Width="50"></ColumnDefinition>
+                <ColumnDefinition Width="50"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <StackPanel>
                 <Label Name="Lable_Book" FontSize="17">BookName</Label>
                 <Label Name="Lable_CreatAt" FontSize="11">2020-08-19</Label>
             </StackPanel>
-            <RadioButton x:Name="RadioButton_Book" Grid.Column="1" Content="Book" Width="30" Height="30" Style="{StaticResource MahApps.Styles.Button.Circle}" Click="RadioButton_Click"></RadioButton>
+            <RadioButton x:Name="RadioButton_Book" Grid.Column="1" Content="List" Width="30" Height="30" Style="{StaticResource MahApps.Styles.Button.Circle}" Click="RadioButton_Click"></RadioButton>
+            <RadioButton x:Name="RadioButton_AddBook" Grid.Column="2" Content="AddBook" Width="30" Height="30" Style="{StaticResource MahApps.Styles.Button.Circle}" Click="RadioButton_AddBook_Click"></RadioButton>
+            <RadioButton x:Name="RadioButton_AddNote" Grid.Column="3" Content="AddNote" Width="30" Height="30" Style="{StaticResource MahApps.Styles.Button.Circle}" Click="RadioButton_AddNote_Click"></RadioButton>
         </Grid>
         <mah:SplitView x:Name="SplitView_Books"  Grid.Row="1"  DisplayMode="Overlay"
                        CanResizeOpenPane="True" IsPaneOpen="True">
